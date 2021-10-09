@@ -7,42 +7,56 @@ interface SongDataInterface {
     public int getYearPublished();
 }
 
-// public class (implemented primarilly in final app week)
 
+
+/**
+ * This is an object that stores the information about the individual songs
+ * 
+ * @author Emma Ashton
+ *
+ */
 public class SongData implements SongDataInterface {
+	private String title;
+	private String artist;
+	private int year;
+	
+	/**
+	 * This is the constructor that sets the variables 
+	 *
+	 * @param title - The title of the song
+	 * @param artist - The artist or band who made the song
+	 * @param year - The year the song was released
+	 */
+	public SongData(String title, String artist, int year)
+    {
+    	this.title = title;
+    	this.artist = artist;
+    	this.year = year;
+    }
 
+	
+    /**
+     * @return - the title of the song 
+     */
     @Override
     public String getTitle() {
-        // TODO Auto-generated method stub
-        return null;
+        return title;
     }
 
+    /**
+     * @return - the artist of the song
+     */
     @Override
     public String getArtist() {
-        // TODO Auto-generated method stub
-        return null;
+        return artist;
     }
 
+    /**
+     * @return - the year the song was published
+     */
     @Override
     public int getYearPublished() {
-        // TODO Auto-generated method stub
-        return 0;
+        return year;
     }
-
 }
 
-class SongDataPlaceholderA implements SongDataInterface {
-    public String getTitle() { return "Song A Vowel"; }
-    public String getArtist() { return "Artist X"; }
-    public int getYearPublished() { return 1900; }
-}
-class SongDataPlaceholderB implements SongDataInterface {
-    public String getTitle() { return "Song B Consonant"; }
-    public String getArtist() { return "Artist Y"; }
-    public int getYearPublished() { return 2000; }
-}
-class SongDataPlaceholderC implements SongDataInterface {
-    public String getTitle() { return "Song C Consonant"; }
-    public String getArtist() { return "Artist X"; }
-    public int getYearPublished() { return 2021; }
-}
