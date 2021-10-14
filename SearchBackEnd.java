@@ -19,10 +19,27 @@ interface SearchBackEndInterface {
 // public class (implemented primarilly in final app week)
 
 public class SearchBackEnd implements SearchBackEndInterface {
+    private SongData() curSong;
+    private SongData[] songTable;
+    private int size;
+ 
+    public void SearchBackEnd() {
+	songTable = new SongData[25];
+	size = 0;
+    }
 
     @Override
     public void addSong(SongDataInterface song) {
         // TODO Auto-generated method stub
+	boolean insert = false;
+	int addLoc = 0;
+	if(song == null || containsSong(song)) {
+		return insert;
+	} else if(songTable[addLoc] == null) {
+			songTable[addLoc] = song;
+			size++;
+			insert = true;
+		}
         
     }
 
