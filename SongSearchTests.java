@@ -1,11 +1,19 @@
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class SongSearchTests {
 
     public static void main(String[] args) throws Exception {
-    runAllDataWrangler();
+    	System.out.println("Test loading song data: " + IntegrationManager_TestData());
+		System.out.println("Test song search back end: " + IntegrationManager_TestBackEnd());
+		System.out.println("Test user interface: " + IntegrationManager_TestFrontEnd());
+		runAllDataWrangler();
 	}
 
     // Data Wrangler Code Tests
@@ -108,6 +116,74 @@ public class SongSearchTests {
     // Front End Developer Tests
 
     // Integration Manager Tests
+	public static boolean IntegrationManager_TestData() {
+		
+		return false;
+	}
 
+	public static boolean IntegrationManager_TestBackEnd() {
+		return false;
+	}
 
+	public static boolean IntegrationManager_TestFrontEnd() {
+		SongSearchTests tester = new SongSearchTests("1\nBe My Baby\n5\n");
+
+		SearchFrontEnd FrontEnd = new SearchFrontEnd();
+		SearchBackEnd BackEnd = new SearchBackEnd();
+		FrontEnd.run(BackEnd);
+		String output = tester.checkOutput();
+        if(output.startsWith("SongSearch Command Menu") && 
+           output.contains("Please insert new Song Name:") &&
+		   output.contains("Song added sucessfully") &&
+		   output.contains("Thank you for using SongSearch. Goodbye."))
+		   return true;
+        
+		return false;
+	}
+
+    // Below is the code that actually implements the redirection of System.in and System.out,
+    // and you are welcome to ignore this code: focusing instead on how the constructor and
+    // checkOutput() method is used int he example above.
+
+    private PrintStream saveSystemOut; // store standard io references to restore after test
+    private PrintStream saveSystemErr;
+    private InputStream saveSystemIn;
+    private ByteArrayOutputStream redirectedOut; // where output is written to durring the test
+    private ByteArrayOutputStream redirectedErr;
+
+    /**
+     * Creates a new test object with the specified string of simulated user input text.
+     * @param programInput the String of text that you want to simulate being typed in by the user.
+     */
+    public SongSearchTests(String programInput) {
+        // backup standard io before redirecting for tests
+        saveSystemOut = System.out;
+        saveSystemErr = System.err;
+        saveSystemIn = System.in;    
+        // create alternative location to write output, and to read input from
+        System.setOut(new PrintStream(redirectedOut = new ByteArrayOutputStream()));
+        System.setErr(new PrintStream(redirectedErr = new ByteArrayOutputStream()));
+        System.setIn(new ByteArrayInputStream(programInput.getBytes()));
+    }
+
+    /**
+     * Call this method after running your test code, to check whether the expected
+     * text was printed out to System.out and System.err.  Calling this method will 
+     * also un-redirect standard io, so that the console can be used as normal again.
+     * 
+     * @return captured text that was printed to System.out and System.err durring test.
+     */
+    public String checkOutput() {
+        try {
+            String programOutput = redirectedOut.toString() + redirectedErr.toString();
+            return programOutput;    
+        } finally {
+            // restore standard io to their pre-test states
+            System.out.close();
+            System.setOut(saveSystemOut);
+            System.err.close();
+            System.setErr(saveSystemErr);
+            System.setIn(saveSystemIn);    
+        }
+    }
 }
