@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class SongSearchTests {
 
     public static void main(String[] args) throws Exception {
-    	System.out.println("Test loading song data: " + IntegrationManager_TestData());
-		System.out.println("Test song search back end: " + IntegrationManager_TestBackEnd());
-		System.out.println("Test user interface: " + IntegrationManager_TestFrontEnd());
-		runAllDataWrangler();
+    	//System.out.println("Test loading song data: " + IntegrationManager_TestData());
+		//System.out.println("Test song search back end: " + IntegrationManager_TestBackEnd());
+		//System.out.println("Test user interface: " + IntegrationManager_TestFrontEnd());
+		//runAllDataWrangler();
 	}
 
     // Data Wrangler Code Tests
@@ -117,17 +117,31 @@ public class SongSearchTests {
 
     // Integration Manager Tests
 	public static boolean IntegrationManager_TestData() {
-		
+		List<SongDataInterface> corr = new LinkedList<SongDataInterface>();
+		corr.add(new SongData("Like a Rolling Stone", "Bob Dylan",1965));		
+		SongLoader songLoader = new SongLoader();
+		try {
+			List<SongDataInterface> test1 = songLoader.loadFile("./data/Top_500_Songs.csv");
+			
+			if (corr.get(0).getArtist().equals(test1.get(0).getArtist()) &&
+			 	corr.get(0).getTitle().equals(test1.get(0).getTitle()) &&
+				corr.get(0).getYearPublished() == test1.get(0).getYearPublished())
+			return true;
+		} catch (Exception FileNotFoundException){
+			System.out.println("No such a file found");
+		}
 		return false;
 	}
 
 	public static boolean IntegrationManager_TestBackEnd() {
+		
+		
 		return false;
 	}
 
 	public static boolean IntegrationManager_TestFrontEnd() {
 		SongSearchTests tester = new SongSearchTests("1\nBe My Baby\n5\n");
-
+		
 		SearchFrontEnd FrontEnd = new SearchFrontEnd();
 		SearchBackEnd BackEnd = new SearchBackEnd();
 		FrontEnd.run(BackEnd);
