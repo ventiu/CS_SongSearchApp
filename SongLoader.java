@@ -39,7 +39,7 @@ public class SongLoader implements SongLoaderInterface {
     	String currString = "";
     	int charCount = 0;
     	
-    	//append a comma to the end so it will properly capture the last string
+	//append a comma to the end so it will properly capture the last string
     	if(line.charAt(line.length()-1) !=',') {line = line + ",";}
     	
     	for(char currChar: line.toCharArray())
@@ -107,7 +107,9 @@ public class SongLoader implements SongLoaderInterface {
         
         while(scnr.hasNextLine())
         {
-        	List<String> line = readCSVLine(scnr.nextLine());
+		String next = scnr.nextLine();
+		if(next.equals("")){continue;}//Skip any empty lines
+        	List<String> line = readCSVLine(next);
         	String year = line.get(yearIndex).replaceAll("[^\\d]", "");//extracts just the numerical part of the year(some had months)
         	SongData temp = new SongData(line.get(titleIndex), line.get(artistIndex), Integer.parseInt(year));
         	out.add(temp);
