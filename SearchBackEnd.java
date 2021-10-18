@@ -55,7 +55,7 @@ public class SearchBackEnd implements SearchBackEndInterface {
      * @throws FileNotFoundException
      */
     private void populate() throws FileNotFoundException {
-        List<SongDataInterface> iniList = new SongLoader().loadAllFilesInDirectory("~/project1_BA_red/Songs");
+        List<SongDataInterface> iniList = new SongLoader().loadAllFilesInDirectory("~/project1_BA_red/data");
         for (int i = 0; i <= iniList.size(); i++) {
             addSong(iniList.get(i));
         }
