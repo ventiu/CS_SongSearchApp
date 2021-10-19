@@ -6,7 +6,7 @@ public class SongSearchApp {
         System.out.println("Welcome to SongSearch");
         List<SongDataInterface> songs = new SongLoader().loadAllFilesInDirectory("./data/");
         SearchBackEndInterface engine = new SearchBackEnd();
-        for(SongDataInterface song : songs) engine.addSong(song);
+	for(SongDataInterface song : songs) engine.addSong(song);
         SearchFrontEndInterface ui = new SearchFrontEnd();
         ui.run(engine);
     }

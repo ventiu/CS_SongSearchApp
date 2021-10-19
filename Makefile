@@ -1,7 +1,7 @@
 run: compile
-	echo "Add command to run the program here"
+	java SongSearchApp
 
-compile: dataWrangler searchFrontEnd
+compile: dataWrangler searchFrontEnd searchBackEnd SongSearchApp.class
 	echo "Use this rule to compile all necessary java source files"
 
 dataWrangler: SongData.class SongLoader.java
@@ -18,3 +18,10 @@ searchFrontEnd: SearchFrontEnd.class SearchFrontEnd.java
 SearchFrontEnd.class: SearchFrontEnd.java
 	javac SearchFrontEnd.java
 
+searchBackEnd: SearchBackEnd.class SearchBackEnd.java
+
+SearchBackEnd.class: SearchBackEnd.java
+	javac SearchBackEnd.java
+
+SongSearchApp.class: SongSearchApp.java
+	javac SongSearchApp.java

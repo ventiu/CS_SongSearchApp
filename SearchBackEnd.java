@@ -34,32 +34,20 @@ interface SearchBackEndInterface {
  * @Author Justin Garza
  */
 public class SearchBackEnd implements SearchBackEndInterface {
-
-    private LinkedList<SongDataInterface>[] songTable;
-    private int capacity;
-    private int size;
-
+    private int capacity = 25;
+    private int size = 0;
+    private LinkedList<SongDataInterface>[] songTable = new LinkedList[this.capacity];
+    
     /**
      * Main constructor to initialize and populate SongData table.
      */
     public void SearchBackEnd() throws FileNotFoundException {
-        this.capacity = 25;
-        songTable = new LinkedList[this.capacity];
-        this.size = 0;
-        populate();
+     	
     }
 
-    /**
-     * Populates the songTable with the initial list.
-     *
-     * @throws FileNotFoundException
-     */
-    private void populate() throws FileNotFoundException {
-        List<SongDataInterface> iniList = new SongLoader().loadAllFilesInDirectory("~/project1_BA_red/data");
-        for (int i = 0; i <= iniList.size(); i++) {
-            addSong(iniList.get(i));
-        }
-    }
+	public int getCap(){
+		return capacity;	
+	}
 
     /**
      * Generates the hash value of the table where the new node
@@ -82,7 +70,12 @@ public class SearchBackEnd implements SearchBackEndInterface {
     @Override
     public void addSong(SongDataInterface song) {
         int addLoc = hash(song);
-
+        if(songTable[addLoc] == null)
+        {
+        	songTable[addLoc] = new LinkedList<SongDataInterface>();
+        	//System.out.println(songTable[addLoc]);
+        }
+        //System.out.println(songTable[addLoc]);
         if (song == null || containsSong(song)) {
         } else {
             songTable[addLoc].add(song);
@@ -99,14 +92,14 @@ public class SearchBackEnd implements SearchBackEndInterface {
     @Override
     public boolean containsSong(SongDataInterface song) {
         boolean contains = false;
-
-        for (int i = 0; i < songTable.length; i++) {
-            for (int j = 0; j < songTable[i].size(); j++) {
-                if (songTable[i].get(j).getTitle().equals(song.getTitle())) {
-                    contains = true;
-                }
+        int addLoc = hash(song);
+        
+        for (int i = 0; i < songTable[addLoc].size(); i++) {
+            if (songTable[addLoc].get(i).getTitle().equals(song.getTitle())) {
+                contains = true;
             }
         }
+
         return contains;
     }
 
@@ -204,3 +197,4 @@ class SearchBackEndPlaceholder implements SearchBackEndInterface {
         return 0;
     }
 }
+
