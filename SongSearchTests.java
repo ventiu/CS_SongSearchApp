@@ -114,6 +114,66 @@ public class SongSearchTests {
     // Back End Developer Tests
 
     // Front End Developer Tests
+         /**
+	 * Calls all FrontEnd based test cases.
+	 * @throws Exception
+	 */
+	public static void runAllFrontEnd() throws Exception {
+		System.out.println("testMenu: " + testMenuOutput());
+		System.out.println("testHistogram: " + testHistogram());
+		System.out.println("testMenuIntputError: " + testMenuInputError());
+	}
+         /**
+	 * Checks the correctness of Menu Output when input format is correct and quits
+	 * 
+	 * @return true if test pass
+	 */
+	public static boolean testMenuOutput() {
+		test tester = new test("1\nLove Story\nTaylor Swift\n2008\n5\n");
+		String output = tester.checkOutput();
+		if (output.startsWith("Welcome to SongSearch") && output.contains("Song added sucessfully") && output.contains("Thank you for using SongSearch. Goodbye.")) {
+			return true;
+		} else {
+			System.out.print(output);
+			return false;
+		}
+	}
+
+	/**
+	 * Checks the correctness of histogram() if input format is correct.
+	 * 
+	 * @return true if test pass
+	 */
+	public static boolean testHistogram() {
+		test test = new test("4\nlove\n");
+		String output = test.checkOutput();
+		if (output.contains("")) {
+			return true;
+		} else {
+			System.out.print(output);
+			return false;
+		}
+	}
+
+	/**
+	 * Checks the correctness of Menu Output when input format is incorrect for adds
+	 * song.
+	 * 
+	 * @return true if test pass
+	 */
+	public static boolean testMenuInputError() {
+		test tester = new test("1\nLove Story\nTaylor Swift\nTS08\n2008\n");
+		String output = tester.checkOutput();
+		if (output.startsWith("Welcome to SongSearch")
+				&& output.contains("Noninteger value included. Please insert new Song Year:")) {
+			return true;
+		} else
+
+		{
+			System.out.print(output);
+			return false;
+		}
+	}
 
     // Integration Manager Tests
 	public static boolean IntegrationManager_TestData() {
