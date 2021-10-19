@@ -1,6 +1,7 @@
 // interface (implemented with proposal)
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 // --== CS400 Project One File Header ==--
 // Name: Julia Oghigian
 // Email: oghigian@wisc.edu
@@ -54,6 +55,7 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 		System.out.println("4. Display Years of Songs with Word in Title as Histogram");
 		System.out.println("5. Quit");
 		Scanner scnr = new Scanner(System.in);
+		System.out.println("Please Select 1, 2, 3, 4, or 5.");
 		String result = scnr.next();
 		if (result.equals("1")) {
 			System.out.println("Please insert new Song Name:");
@@ -61,18 +63,25 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 			System.out.println("Please insert new Song Artist:");
 			String artistName = scnr.next();
 			System.out.println("Please insert new Song Year:");
-			while (scnr.hasNext()) {
-				if (!scnr.hasNextInt()) {
-					System.out.println("Noninteger value included. Please insert new Song Year:");
-					break;
+		int songYear = 0;
+		try{
+		 
+		
+					songYear = scnr.nextInt();
+
+		}catch ( InputMismatchException e){
+				System.out.println("Noninteger value included in Song Year. Please Start Over.");
+				return;
+				
 				}
-			}
-			int songYear = scnr.nextInt();
+			
+		
+		
 			while (String.valueOf(songYear).length() != 4) {
 				System.out.println("Year is not correct length. Please insert new Song Year:");
 				songYear = 0;
 				songYear = scnr.nextInt();
-				break;
+				
 			}
 
 			SongDataInterface song = new SongData(songName, artistName, songYear);
@@ -81,28 +90,32 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 			System.out.print("Song added sucessfully");
 			menu();
 		}
-		if (result.equals("2")) {
+		else if (result.equals("2")) {
 			System.out.println("Please insert Word:");
 			String songWord = scnr.next();
 			System.out.println(backEndInterface.findTitles(songWord));
 			menu();
 		}
-		if (result.equals("3")) {
+		else if (result.equals("3")) {
 			System.out.println("Please insert Word:");
 			String songWordForArtists = scnr.next();
 			System.out.println(backEndInterface.findArtists(songWordForArtists));
 			menu();
 		}
-		if (result.equals("4")) {
+		else if (result.equals("4")) {
 			System.out.println("Please insert Word:");
 			String songWordHistogram = scnr.next();
 			histogram(songWordHistogram);
 			menu();
 		}
-		if (result.equals("5")) {
+		else if (result.equals("5")) {
 			System.out.println("Thank you for using SongSearch. Goodbye.");
 			return;
 		}
+		else {
+			System.out.println("Invalid Choice. Select again.");
+			menu();
+	}
 	}
 
 	/**
@@ -114,12 +127,15 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 	@Override
 	public void histogram(String songName) {
 		ArrayList<Integer> count = new ArrayList<>();
-		for (int j = 0; j < 76; j++) {
+		int number = 0;
+		
 			for (int i = 1945; i < 2021; i++) {
 
-				count.add(backEndInterface.findNumberOfSongsInYear(songName, i));
+				 count.add((backEndInterface.findNumberOfSongsInYear(songName, i)));
+		
 			}
-		}
+			
+		
 		int year = 1945;
 		for (int j = 0; j < count.size(); j++) {
 			System.out.print(year + ": ");
