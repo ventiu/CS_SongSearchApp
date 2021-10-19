@@ -10,10 +10,11 @@ import java.util.Scanner;
 public class SongSearchTests {
 
     public static void main(String[] args) throws Exception {
-    	//System.out.println("Test loading song data: " + IntegrationManager_TestData());
+  	//System.out.println("Test loading song data: " + IntegrationManager_TestData());
 		//System.out.println("Test song search back end: " + IntegrationManager_TestBackEnd());
 		//System.out.println("Test user interface: " + IntegrationManager_TestFrontEnd());
 		//runAllDataWrangler();
+	  runAllFrontEnd();
 	}
 
     // Data Wrangler Code Tests
@@ -118,10 +119,10 @@ public class SongSearchTests {
 	 * Calls all FrontEnd based test cases.
 	 * @throws Exception
 	 */
-	public static void runAllFrontEnd() throws Exception {
+	public static void  runAllFrontEnd()  {
 		System.out.println("testMenu: " + testMenuOutput());
 		System.out.println("testHistogram: " + testHistogram());
-		System.out.println("testMenuIntputError: " + testMenuInputError());
+         	System.out.println("testMenuIntputError: " + testMenuInputError());
 	}
          /**
 	 * Checks the correctness of Menu Output when input format is correct and quits
@@ -129,9 +130,16 @@ public class SongSearchTests {
 	 * @return true if test pass
 	 */
 	public static boolean testMenuOutput() {
-		test tester = new test("1\nLove Story\nTaylor Swift\n2008\n5\n");
-		String output = tester.checkOutput();
-		if (output.startsWith("Welcome to SongSearch") && output.contains("Song added sucessfully") && output.contains("Thank you for using SongSearch. Goodbye.")) {
+                SongSearchTests test = new SongSearchTests("2\nLove\n5\n");
+		
+
+                SearchFrontEnd frontEnd = new SearchFrontEnd();
+                SearchBackEnd backEnd = new SearchBackEnd();
+                frontEnd.run(backEnd);
+System.out.print("S");
+		String output = test.checkOutput();
+		if (output.startsWith("SongSearch Command Menu") &&  output.contains("Thank you for using SongSearch. Goodbye.")) {
+		
 			return true;
 		} else {
 			System.out.print(output);
@@ -145,9 +153,14 @@ public class SongSearchTests {
 	 * @return true if test pass
 	 */
 	public static boolean testHistogram() {
-		test test = new test("4\nlove\n");
+		SongSearchTests test = new SongSearchTests("4\nLove\n");
+
+                SearchFrontEnd frontEnd = new SearchFrontEnd();
+                SearchBackEnd backEnd = new SearchBackEnd();
+                frontEnd.run(backEnd);
+
 		String output = test.checkOutput();
-		if (output.contains("")) {
+		if (output.contains("1945: \n1946: \n1947: \n1948: \n1949: \n1950: \n1951: \n1952: \n1953: \n1954: \n1955: \n1956: **\n1957: *\n1958: *\n1959: \n1960: \n1961: *\n1962: \n1963: *\n1964: *****\n1965: \n1966: **\n1967: ****\n1968: *\n1969: *\n1970: \n1971: \n1972: *\n1973: \n1974: \n1975: \n1976: \n1977: *\n1978: \n1979: \n1980: *\n1981: \n1982: *\n1983: \n1984: ***\n1985: \n1986: *\n1987: \n1988: \1989: *\n1990: \n1991: *\n1992: \n1993: \n1994: \n1995: \n1996: *\n1997: \n1998: \n1999: \n2000: \n2001: \n2002: \n2003: \n2004: \n2005: \n2006: \n2007: \n2008: \n2009: \n2010: ***\n2011: **\n2012: **\n2013: ****\n2014: ****\n2015: ***********\n2016: ***\n2017: *****\n2018: ****\n2019: ***\n2020: \n")) {
 			return true;
 		} else {
 			System.out.print(output);
@@ -162,10 +175,15 @@ public class SongSearchTests {
 	 * @return true if test pass
 	 */
 	public static boolean testMenuInputError() {
-		test tester = new test("1\nLove Story\nTaylor Swift\nTS08\n2008\n");
-		String output = tester.checkOutput();
-		if (output.startsWith("Welcome to SongSearch")
-				&& output.contains("Noninteger value included. Please insert new Song Year:")) {
+		SongSearchTests test = new SongSearchTests("1\nLove Story\nTaylor Swift\nTS08\n");
+		
+		SearchFrontEnd frontEnd = new SearchFrontEnd();
+		SearchBackEnd backEnd = new SearchBackEnd();
+		frontEnd.run(backEnd);
+		
+		String output = test.checkOutput();
+		if (output.startsWith("SongSearch Command Menu")
+				&& output.contains("Noninteger value included. Please Start Over.")) {
 			return true;
 		} else
 
