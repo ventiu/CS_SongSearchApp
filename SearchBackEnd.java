@@ -44,7 +44,7 @@ public class SearchBackEnd implements SearchBackEndInterface {
      */
     public void SearchBackEnd() throws FileNotFoundException {
         this.capacity = 25;
-        songTable = new LinkedList[capacity];
+        songTable = new LinkedList[this.capacity];
         this.size = 0;
         populate();
     }
@@ -70,7 +70,7 @@ public class SearchBackEnd implements SearchBackEndInterface {
      */
     private int hash(SongDataInterface song) {
         int hash;
-        hash = Math.abs(song.getTitle().hashCode()) % capacity;
+        hash = Math.abs(song.getTitle().hashCode()) % this.capacity;
         return hash;
     }
 
