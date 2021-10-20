@@ -15,6 +15,7 @@ public class SongSearchTests {
 		//System.out.println("Test user interface: " + IntegrationManager_TestFrontEnd());
 		//runAllDataWrangler();
 	  runAllFrontEnd();
+          runAllBackEnd();
 	}
 
     // Data Wrangler Code Tests
@@ -113,6 +114,27 @@ public class SongSearchTests {
 		return true;
 	}
     // Back End Developer Tests
+
+public static void runAllBackEnd() throws FileNotFoundException {
+        System.out.println("Test Contains   : " + testCon());
+        //System.out.println("Test Add       : " + testAdd());
+        //System.out.println("Test Find Artists: " + testArt());
+        //System.out.println("Test Find Titles: " + testTitle());
+        //System.out.println("Test Year#: " + testYear());
+    }
+
+    /**
+     * Tests the contains method of the hash table.
+     *
+     * @return True if passed, false otherwise.
+     */
+     public static boolean testCon() throws FileNotFoundException {
+        SearchBackEnd testTable = new SearchBackEnd();
+        SongData check = new SongData("Secrets", "OneRepublic", 2010);
+        if(testTable.containsSong(check)) {
+        } else return false;
+        return true;
+    }
 
     // Front End Developer Tests
          /**
