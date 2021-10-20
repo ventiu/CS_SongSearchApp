@@ -48,76 +48,72 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 	 */
 	@Override
 	public void menu() {
-		System.out.println("SongSearch Command Menu");
-		System.out.println("1. Insert New Song into Database");
-		System.out.println("2. Search For Song Titles by Words in those Title");
-		System.out.println("3. Search For Artists by Words in their Song Titles");
-		System.out.println("4. Display Years of Songs with Word in Title as Histogram");
-		System.out.println("5. Quit");
 		Scanner scnr = new Scanner(System.in);
-		System.out.println("Please Select 1, 2, 3, 4, or 5.");
-		String result = scnr.next();
-		if (result.equals("1")) {
-			System.out.println("Please insert new Song Name:");
-			scnr.nextLine();
-			String songName = scnr.nextLine();
-			System.out.println("Please insert new Song Artist:");
-		        String artistName = scnr.nextLine();
-			System.out.println("Please insert new Song Year:");
-		int songYear = 0;
-	try{
-		 
-		
-					songYear = scnr.nextInt();
+		while (true){
+			System.out.println("SongSearch Command Menu");
+			System.out.println("1. Insert New Song into Database");
+			System.out.println("2. Search For Song Titles by Words in those Title");
+			System.out.println("3. Search For Artists by Words in their Song Titles");
+			System.out.println("4. Display Years of Songs with Word in Title as Histogram");
+			System.out.println("5. Quit");
+			System.out.println("Please Select 1, 2, 3, 4, or 5.");
+			String result = scnr.next();
+			if (result.equals("1")) {
+				System.out.println("Please insert new Song Name:");
+				scnr.nextLine();
+				String songName = scnr.nextLine();
+				System.out.println("Please insert new Song Artist:");
+					String artistName = scnr.nextLine();
+				System.out.println("Please insert new Song Year:");
+			int songYear = 0;
+			try{
+			
+				songYear = scnr.nextInt();
 
-		}catch ( InputMismatchException e){
-				System.out.println("Noninteger value included in Song Year. Please Start Over.");
-				return;
-				
+			}catch ( InputMismatchException e){
+					System.out.println("Noninteger value included in Song Year. Please Start Over.");
+					return;	
 				}
 			
-
-
-		
 			while (String.valueOf(songYear).length() != 4) {
 				System.out.println("Year is not correct length. Please insert new Song Year:");
 				songYear = 0;
-				songYear = scnr.nextInt();
-				
+				songYear = scnr.nextInt();					
 			}
 
 			SongDataInterface song = new SongData(songName, artistName, songYear);
-
 			backEndInterface.addSong(song);
 			System.out.println("Song added sucessfully");
-			menu();
+			continue;
+			}
+			else if (result.equals("2")) {
+				System.out.println("Please insert Word:");
+				String songWord = scnr.next();
+				System.out.println(backEndInterface.findTitles(songWord));
+				continue;
+			}
+			else if (result.equals("3")) {
+				System.out.println("Please insert Word:");
+				String songWordForArtists = scnr.next();
+				System.out.println(backEndInterface.findArtists(songWordForArtists));
+				continue;
+			}
+			else if (result.equals("4")) {
+				System.out.println("Please insert Word:");
+				String songWordHistogram = scnr.next();
+				histogram(songWordHistogram);
+				continue;
+			}
+			else if (result.equals("5")) {
+				System.out.println("Thank you for using SongSearch. Goodbye.");
+				break;
+			}
+			else {
+				System.out.println("Invalid Choice. Select again.");
+				continue;
+			}
 		}
-		else if (result.equals("2")) {
-			System.out.println("Please insert Word:");
-			String songWord = scnr.next();
-			System.out.println(backEndInterface.findTitles(songWord));
-			menu();
-		}
-		else if (result.equals("3")) {
-			System.out.println("Please insert Word:");
-			String songWordForArtists = scnr.next();
-			System.out.println(backEndInterface.findArtists(songWordForArtists));
-			menu();
-		}
-		else if (result.equals("4")) {
-			System.out.println("Please insert Word:");
-			String songWordHistogram = scnr.next();
-			histogram(songWordHistogram);
-			menu();
-		}
-		else if (result.equals("5")) {
-			System.out.println("Thank you for using SongSearch. Goodbye.");
-			return;
-		}
-		else {
-			System.out.println("Invalid Choice. Select again.");
-			menu();
-	}
+		
 	}
 
 	/**

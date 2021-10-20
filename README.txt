@@ -39,10 +39,8 @@ Signature: Julia Oghigian
 Integration Manager:
 --------------------
 @wisc.edu Email: twen22@wisc.edu
-Files Written By: <list files you have written here>
+Files Written By: SongSearchTests.java
 Additional Contributions: README.txt
-Referenced Works: <cite any code not writen by you explicitly for this projec here, for example:
-work reused from a previous course, examples taken from any website or book, or any other author,
-if none, explicitly replace this double quoted text with the word "none">
+Referenced Works: "none"
 Signature: Tianyou Wen
 
