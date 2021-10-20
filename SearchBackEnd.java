@@ -41,13 +41,9 @@ public class SearchBackEnd implements SearchBackEndInterface {
     /**
      * Main constructor to initialize and populate SongData table.
      */
-    public void SearchBackEnd() throws FileNotFoundException {
-     	
-    }
+    public void SearchBackEnd() throws FileNotFoundException {}
 
-	public int getCap(){
-		return capacity;	
-	}
+    public int getCap(){return capacity;}
 
     /**
      * Generates the hash value of the table where the new node
@@ -93,7 +89,11 @@ public class SearchBackEnd implements SearchBackEndInterface {
     public boolean containsSong(SongDataInterface song) {
         boolean contains = false;
         int addLoc = hash(song);
-        
+
+	if(songTable[addLoc] == null)
+        {
+                songTable[addLoc] = new LinkedList<SongDataInterface>();
+        }
         for (int i = 0; i < songTable[addLoc].size(); i++) {
             if (songTable[addLoc].get(i).getTitle().equals(song.getTitle())) {
                 contains = true;
@@ -114,6 +114,11 @@ public class SearchBackEnd implements SearchBackEndInterface {
     public List<String> findTitles(String titleWord) {
         List<String> titles = new LinkedList<String>();
 
+	for (int i = 0; i < songTable.length; i++) {
+            if (songTable[i] == null) {
+               songTable[i] = new LinkedList<SongDataInterface>();
+            }
+        }
         for (int i = 0; i < songTable.length; i++) {
             for (int j = 0; j < songTable[i].size(); j++) {
                 if (songTable[i].get(j).getTitle().contains(titleWord)) {
@@ -135,10 +140,16 @@ public class SearchBackEnd implements SearchBackEndInterface {
     public List<String> findArtists(String titleWord) {
         List<String> artists = new LinkedList<String>();
 
+	for (int i = 0; i < songTable.length; i++) {
+	    if (songTable[i] == null) {
+               songTable[i] = new LinkedList<SongDataInterface>();
+	    }
+	}
         for (int i = 0; i < songTable.length; i++) {
             for (int j = 0; j < songTable[i].size(); j++) {
                 if (songTable[i].get(j).getTitle().contains(titleWord)) {
                     artists.add(songTable[i].get(j).getArtist());
+		    continue;
                 }
             }
         }
@@ -158,6 +169,11 @@ public class SearchBackEnd implements SearchBackEndInterface {
     public int findNumberOfSongsInYear(String titleWord, int year) {
         int counter = 0;
 
+	for (int i = 0; i < songTable.length; i++) {
+            if (songTable[i] == null) {
+               songTable[i] = new LinkedList<SongDataInterface>();
+            }
+        }
         for (int i = 0; i < songTable.length; i++) {
             for (int j = 0; j < songTable[i].size(); j++) {
                 if (songTable[i].get(j).getYearPublished() == year && songTable[i].get(j).getTitle().contains(titleWord)) {

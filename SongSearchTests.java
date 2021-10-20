@@ -10,12 +10,12 @@ import java.util.Scanner;
 public class SongSearchTests {
 
     public static void main(String[] args) throws Exception {
-  	//System.out.println("Test loading song data: " + IntegrationManager_TestData());
+  		//System.out.println("Test loading song data: " + IntegrationManager_TestData());
 		//System.out.println("Test song search back end: " + IntegrationManager_TestBackEnd());
 		//System.out.println("Test user interface: " + IntegrationManager_TestFrontEnd());
-		//runAllDataWrangler();
-	  runAllFrontEnd();
-          runAllBackEnd();
+		runAllBackEnd();
+		runAllDataWrangler();
+	  	runAllFrontEnd();
 	}
 
     // Data Wrangler Code Tests
@@ -25,7 +25,7 @@ public class SongSearchTests {
 		System.out.println("Read File     : " + testReadFile());
 		System.out.println("Read Directory: " + testReadDirectory());
 	}
-	
+
 	/**
 	 * This tests a normal line of csv, a line that has quotes around some elements, and a line that has internal quotes
 	 * @return - whether it passed the test
@@ -113,28 +113,102 @@ public class SongSearchTests {
 		
 		return true;
 	}
+
+
     // Back End Developer Tests
 
-public static void runAllBackEnd() throws FileNotFoundException {
-        System.out.println("Test Contains   : " + testCon());
-        //System.out.println("Test Add       : " + testAdd());
-        //System.out.println("Test Find Artists: " + testArt());
-        //System.out.println("Test Find Titles: " + testTitle());
-        //System.out.println("Test Year#: " + testYear());
-    }
+	public static void runAllBackEnd() throws FileNotFoundException {
+        	System.out.println("BackEnd Contains: " + testCon());
+        	System.out.println("BackEnd Artists : " + testArt());
+        	System.out.println("BackEnd Titles  : " + testTitles());
+        	System.out.println("BackEnd Year    : " + testYear());
+    	}
 
-    /**
-     * Tests the contains method of the hash table.
-     *
-     * @return True if passed, false otherwise.
-     */
-     public static boolean testCon() throws FileNotFoundException {
-        SearchBackEnd testTable = new SearchBackEnd();
-        SongData check = new SongData("Secrets", "OneRepublic", 2010);
-        if(testTable.containsSong(check)) {
-        } else return false;
-        return true;
-    }
+    	/**
+     	* Tests the add & contains method of the hash table.
+     	*
+     	* @return True if passed, false otherwise.
+     	*/
+     	public static boolean testCon() throws FileNotFoundException {
+        	SearchBackEnd testTable = new SearchBackEnd();
+        	SongData check1 = new SongData("Secrets", "OneRepublic", 2010);
+		SongData check2 = new SongData("Tangerine", "Glass Animals", 2015);
+		SongData check3 = new SongData("still feel", "Half Alive", 2008);
+		testTable.addSong(check1);
+		testTable.addSong(check2);
+		testTable.addSong(check3);
+        	if(testTable.containsSong(check1) && testTable.containsSong(check2) && testTable.containsSong(check3)) {
+        	} else return false;
+        	return true;
+    	}
+
+	/**
+     	* Tests the output of the findArtists method to ensure it includes all necessary elements.
+     	*
+     	* @return True if passed, false otherwise.
+     	*/
+    	private static boolean testArt() throws FileNotFoundException {
+        	boolean passed = false;
+        	SearchBackEnd testTable = new SearchBackEnd();
+        	SongData song1 = new SongData("Holiday", "Green Day", 2004);
+        	SongData song2 = new SongData("Holiday", "Lil Nas X", 2020);
+        	SongData song3 = new SongData("infestissumam", "Ghost", 2013);
+        	testTable.addSong(song1);
+        	testTable.addSong(song2);
+        	testTable.addSong(song3);
+        	String output1 = testTable.findArtists("Holiday").toString();
+        	String output2 = testTable.findArtists("fes").toString();
+		//System.out.println(testTable.findArtists("Holiday"));
+        	//System.out.println(output1 + "\n" + output2);
+        	if(output1.equals("[Green Day] [Lil Nas X]") || output2.equals("[Ghost]")) {
+        	    passed = true;
+        	}
+        	return passed;
+    	}
+
+	/**
+        * Tests the output of the findTitles method to ensure it includes all necessary elements.
+        *
+        * @return True if passed, false otherwise.
+        */
+        private static boolean testTitles() throws FileNotFoundException {
+                boolean passed = false;
+                SearchBackEnd testTable = new SearchBackEnd();
+                SongData song1 = new SongData("Holiday", "Green Day", 2004);
+                SongData song2 = new SongData("Holiday", "Lil Nas X", 2020);
+                SongData song3 = new SongData("infestissumam", "Ghost", 2013);
+                testTable.addSong(song1);
+                testTable.addSong(song2);
+                testTable.addSong(song3);
+                String output1 = testTable.findTitles("Holiday").toString();
+                String output2 = testTable.findTitles("fes").toString();
+                //System.out.println(testTable.findTitles("Holiday"));
+                //System.out.println(output1 + "\n" + output2);
+                if(output1.equals("[Holiday] [Holiday]") || output2.equals("[infestissumam]")) {
+                    passed = true;
+                }
+                return passed;
+        }
+
+	/**
+        * Tests the method to find the number of songs within a year.
+        *
+        * @return True if passed, false otherwise.
+        */
+        public static boolean testYear() throws FileNotFoundException {
+                SearchBackEnd testTable = new SearchBackEnd();
+                SongData check1 = new SongData("Secrets", "OneRepublic", 2010);
+                SongData check2 = new SongData("Tangerine", "Glass Animals", 2005);
+                SongData check3 = new SongData("Yellow Submerine", "Half Alive", 2005);
+                testTable.addSong(check1);
+                testTable.addSong(check2);
+                testTable.addSong(check3);
+                if(testTable.findNumberOfSongsInYear("ine",2005) == 2 && testTable.findNumberOfSongsInYear("Sec",2010) == 1) {
+                } else return false;
+                return true;
+        }
+
+
 
     // Front End Developer Tests
          /**
