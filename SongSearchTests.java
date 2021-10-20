@@ -18,8 +18,8 @@ import java.util.Scanner;
 public class SongSearchTests {
 
     public static void main(String[] args) throws Exception {
-		runAllBackEnd();
 		runAllDataWrangler();
+		runAllBackEnd();
 	  	runAllFrontEnd();
 		runAllIntegrationManager();
 	}
@@ -255,7 +255,7 @@ public class SongSearchTests {
 	 * @return true if test pass
 	 */
 	public static boolean testHistogram() {
-		SongSearchTests test = new SongSearchTests("4\nLove\n");
+		SongSearchTests test = new SongSearchTests("4\nLove\n5\n");
 
 		SearchFrontEnd frontEnd = new SearchFrontEnd();
 		SearchBackEnd backEnd = new SearchBackEnd();
@@ -277,7 +277,7 @@ public class SongSearchTests {
 	 * @return true if test pass
 	 */
 	public static boolean testMenuInputError() {
-		SongSearchTests test = new SongSearchTests("1\nLove Story\nTaylor Swift\nTS08\n");
+		SongSearchTests test = new SongSearchTests("1\nLove Story\nTaylor Swift\nTS08\n5\n");
 		
 		SearchFrontEnd frontEnd = new SearchFrontEnd();
 		SearchBackEnd backEnd = new SearchBackEnd();

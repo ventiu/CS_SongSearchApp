@@ -1,10 +1,10 @@
 run: compile
 	java SongSearchApp
 
-compile: dataWrangler searchFrontEnd searchBackEnd SongSearchApp.class
+compile: dataWrangler searchBackEnd searchFrontEnd SongSearchApp.class
 	echo "Use this rule to compile all necessary java source files"
 
-dataWrangler: SongData.class SongLoader.java
+dataWrangler: SongData.class SongLoader.class
 	
 
 SongLoader.class: SongLoader.java
@@ -13,15 +13,15 @@ SongLoader.class: SongLoader.java
 SongData.class: SongData.java
 	javac SongData.java
 
-searchFrontEnd: SearchFrontEnd.class SearchFrontEnd.java
+searchBackEnd: SearchBackEnd.class
 
-SearchFrontEnd.class: SearchFrontEnd.java
-	javac SearchFrontEnd.java
-
-searchBackEnd: SearchBackEnd.class SearchBackEnd.java
+searchFrontEnd: SearchFrontEnd.class
 
 SearchBackEnd.class: SearchBackEnd.java
 	javac SearchBackEnd.java
+
+SearchFrontEnd.class: SearchFrontEnd.java
+	javac SearchFrontEnd.java
 
 SongSearchApp.class: SongSearchApp.java
 	javac SongSearchApp.java
