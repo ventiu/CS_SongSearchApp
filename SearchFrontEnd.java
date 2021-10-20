@@ -59,12 +59,13 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 		String result = scnr.next();
 		if (result.equals("1")) {
 			System.out.println("Please insert new Song Name:");
-			String songName = scnr.next();
+			scnr.nextLine();
+			String songName = scnr.nextLine();
 			System.out.println("Please insert new Song Artist:");
-			String artistName = scnr.next();
+		        String artistName = scnr.nextLine();
 			System.out.println("Please insert new Song Year:");
 		int songYear = 0;
-		try{
+	try{
 		 
 		
 					songYear = scnr.nextInt();
@@ -75,7 +76,8 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 				
 				}
 			
-		
+
+
 		
 			while (String.valueOf(songYear).length() != 4) {
 				System.out.println("Year is not correct length. Please insert new Song Year:");
@@ -87,7 +89,7 @@ public class SearchFrontEnd implements SearchFrontEndInterface {
 			SongDataInterface song = new SongData(songName, artistName, songYear);
 
 			backEndInterface.addSong(song);
-			System.out.print("Song added sucessfully");
+			System.out.println("Song added sucessfully");
 			menu();
 		}
 		else if (result.equals("2")) {
