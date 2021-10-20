@@ -15,7 +15,7 @@ Data Wrangler Section:
 ----------------------
 @wisc.edu Email: Kashton@wisc.edu
 Files Written By: SongData.java, SongLoader.java
-Additional Contributions: Songs/ and dwTest/
+Additional Contributions: data/ and dwTest/ and README.txt and some help with SearchBackEnd.java
 Referenced Works: "none"
 Signature: Emma Ashton
 
